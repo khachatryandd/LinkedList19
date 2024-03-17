@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-        
+            MyPostfix myPostfix = new MyPostfix();
+
+            myPostfix.Run();
         }
     }
 }
