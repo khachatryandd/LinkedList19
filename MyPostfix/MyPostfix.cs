@@ -7,78 +7,100 @@ using MyStack;
 
 namespace MyPostfix;
 
+
 internal class MyPostfix
 {
-    public string[] array;
-    public bool x;
+    public char[] array;
     public int index = 0;
-    MyStack<string> myStack = new MyStack.MyStack<string>();
-   public void Run()
+    MyStack<string> myStack = new MyStack<string>();
+
+    public void Run()
     {
         string text = Input();
         bool isValid = Validate(text);
-        array= new string[text.Length];    
-        if(isValid)
+        if (isValid == false || text == null)
         {
-            ReturnString(text);
-            Algorithms();
-            foreach(var i in array)
-            Console.WriteLine(i);
+            Console.WriteLine("Invalid input!");
+            return;
         }
-        else { Console.WriteLine("sax vata"); }
+        else
+        {
+            array = new char[text.Length];
+            ReturnString(text);
+
+            string result = Algorithms();
+            Console.WriteLine(result);
+        }
     }
+
     public string Input()
     {
         string text = Console.ReadLine();
         return text;
     }
-    public string[] ReturnString(string operation)
+    public void ReturnString(string operation)
     {
-        for (int i = 0; i < operation.Length; i++)
+        foreach (char c in operation)
         {
-            if (operation[i] == ' ')
+            if (c != ' ')
             {
+                array[index] = c;
                 index++;
-                continue;
-            }
-            else
-            {
-                array[index] = operation[i].ToString();
-                
             }
         }
-        //array = operation.Split(' ');
-        return array;
     }
-    public void Algorithms()
+    public string Algorithms()
     {
-        for (int i = 0; i <= index; i++)
+        foreach (char c in array)
         {
-            if (array[i] != "*" && array[i] != "/" && array[i] != "+" && array[i] != "-" && array[i] != " ")
+            if (char.IsDigit(c))
             {
-                myStack.Push(array[i]);
+                myStack.Push(c.ToString());
             }
-            else
+            else if (c == '+' || c == '-' || c == '*' || c == '/')
             {
-                break;
+                int num2 = int.Parse(myStack.Pop());
+                int num1 = int.Parse(myStack.Pop());
+                int result = 0;
+
+                switch (c)
+                {
+                    case '+':
+                        result = num1 + num2;
+                        break;
+                    case '-':
+                        result = num1 - num2;
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                        break;
+                    case '/':
+                        if (num2 != 0)
+                        {
+                            result = num1 / num2;
+                        }
+                        else
+                        {
+                            throw new ArgumentException("You cant divide into 0");
+                        }
+                        break;
+                }
+                myStack.Push(result.ToString());
             }
         }
-        
+        return myStack.Pop();
     }
-    
+
+
     public bool Validate(string text)
     {
         foreach (var t in text)
         {
             if (char.IsDigit(t) || t == '+' || t == '-' || t == '*' || t == '/' || t == ' ')
             {
-                x = true;
-            }
-            else
-            {
-                x = false;
+                return true;
             }
         }
-        return x;
+        return false;
     }
 }
