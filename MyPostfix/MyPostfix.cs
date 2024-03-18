@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyStack;
+﻿using MyStack;
 
 namespace MyPostfix;
 
@@ -91,7 +86,7 @@ internal class MyPostfix
         return myStack.Pop();
     }
 
-
+    // petqa sksi tvov, tvic heto kara lini menak +,-  operandneri qaaky 1ov pakas petqa lini operatorneri qanakic
     public bool Validate(string text)
     {
         foreach (var t in text)

@@ -13,8 +13,8 @@ public class MyLinkedList<T> : ICollection<T>
 
     public void Add(T item)
     {
-        AddFirst(item);
-        //AddLast(item);
+        //AddFirst(item);
+        AddLast(item);
     }
 
     public void Clear()
