@@ -87,8 +87,7 @@ public class MyLinkedList<T> : ICollection<T>
         }
     }
     private void AddLast(MyLinkedListNode<T> node)
-    {
-
+    { 
         if(Count == 0)
         {
             head = node;
